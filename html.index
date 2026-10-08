@@ -1,0 +1,1291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SchoolConnect | Multilingual Communication</title>
+
+<style>
+:root {
+  --primary: #4f46e5;
+  --primary-dark: #3730a3;
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --green: #15803d;
+  --red: #dc2626;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button { cursor: pointer; }
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: #171b35;
+  color: white;
+  padding: 24px 16px;
+  flex-shrink: 0;
+}
+
+.brand {
+  font-size: 21px;
+  font-weight: bold;
+  padding: 5px 10px 28px;
+}
+
+.brand span { color: #a5b4fc; }
+
+.nav-btn {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #cbd5e1;
+  text-align: left;
+  padding: 13px 12px;
+  margin: 4px 0;
+  border-radius: 9px;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: #34385b;
+  color: white;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.topbar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 18px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.topbar h2 { margin: 0; font-size: 21px; }
+
+.topbar small { color: var(--muted); }
+
+.container {
+  max-width: 1450px;
+  padding: 28px;
+  margin: auto;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+.welcome {
+  background: linear-gradient(120deg, #4338ca, #7c3aed);
+  color: white;
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.welcome h1 { margin-top: 0; }
+.welcome p { line-height: 1.7; color: #e0e7ff; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 18px;
+  min-width: 0;
+}
+
+.stat-label { color: var(--muted); font-size: 14px; }
+.stat-number { font-size: 29px; font-weight: bold; margin: 13px 0 8px; }
+.stat-icon { font-size: 25px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+h2, h3 { margin-top: 0; }
+h3 { font-size: 17px; }
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 15px 0 7px;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: white;
+  color: var(--text);
+}
+
+textarea { min-height: 110px; resize: vertical; }
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid #c7d2fe;
+  border-color: var(--primary);
+}
+
+.btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 16px;
+  background: var(--primary);
+  color: white;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.btn:hover { background: var(--primary-dark); }
+
+.btn.secondary {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.btn.danger { background: #dc2626; }
+
+.btn.ghost {
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.badge.green { background: #dcfce7; color: #166534; }
+.badge.orange { background: #ffedd5; color: #9a3412; }
+.badge.red { background: #fee2e2; color: #991b1b; }
+
+.notice {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.notice:last-child { border-bottom: 0; }
+.notice h3 { margin: 8px 0; }
+.notice p { line-height: 1.6; overflow-wrap: anywhere; }
+
+.progress {
+  background: #e2e8f0;
+  height: 9px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 10px 0 18px;
+}
+
+.progress div {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 20px;
+}
+
+.table-wrap { overflow-x: auto; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 530px;
+  font-size: 14px;
+}
+
+th, td {
+  padding: 13px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th { color: var(--muted); font-weight: 600; }
+
+.empty { color: var(--muted); padding: 16px 0; }
+
+footer {
+  padding: 20px 28px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.check-row input { width: auto; margin-top: 4px; }
+
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sidebar { width: 210px; }
+}
+
+@media (max-width: 650px) {
+  .layout { display: block; }
+  .sidebar { width: 100%; padding: 12px; }
+  .brand { padding: 8px; }
+  .nav-list { display: flex; overflow-x: auto; gap: 6px; }
+  .nav-btn { width: auto; flex-shrink: 0; margin: 0; }
+  .topbar, .container { padding: 17px; }
+  .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .card { padding: 16px; }
+  .two-col { grid-template-columns: 1fr; gap: 0; }
+  .stat-number { font-size: 24px; }
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="brand">🌍 School<span>Connect</span></div>
+
+    <div class="nav-list">
+      <button class="nav-btn active" data-page="dashboard">🏠 Dashboard</button>
+      <button class="nav-btn" data-page="notices">📩 Notices</button>
+      <button class="nav-btn" data-page="parents">👨‍👩‍👧 Parents</button>
+      <button class="nav-btn" data-page="reminders">📅 Reminders</button>
+      <button class="nav-btn" data-page="voice">🎙️ Voice Messages</button>
+      <button class="nav-btn" data-page="assistant">🤖 AI Assistant</button>
+      <button class="nav-btn" data-page="analytics">📊 Analytics</button>
+      <button class="nav-btn" data-page="settings">⚙️ Settings</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h2 id="pageTitle">Dashboard</h2>
+        <small>School-to-Parent Communication Platform</small>
+      </div>
+
+      <div>
+        <label for="role" style="margin:0 0 5px">Demo view</label>
+        <select id="role">
+          <option value="teacher">Teacher / Admin</option>
+          <option value="parent">Parent Portal</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="container">
+
+      <!-- DASHBOARD -->
+      <section class="page active" id="dashboard">
+        <div class="welcome">
+          <h1>Welcome to SchoolConnect 👋</h1>
+          <p>
+            Communicate with every family, in every language.
+            Create notices, send reminders, and make school communication
+            accessible to all parents.
+          </p>
+          <button class="btn ghost" onclick="showPage('notices')">
+            + Create Announcement
+          </button>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="stat-icon">👨‍👩‍👧</div>
+            <div class="stat-label">Registered Parents</div>
+            <div class="stat-number" id="statParents">4</div>
+            <div class="muted small">Demo parent records</div>
+          </div>
+
+          <div class="card">
+            <div class="stat-icon">📩</div>
+            <div class="stat-label">Announcements</div>
+            <div class="stat-number" id="statNotices">2</div>
+            <div class="muted small">Total notices created</div>
+          </div>
+
+          <div class="card">
+            <div class="stat-icon">📬</div>
+            <div class="stat-label">Read Confirmations</div>
+            <div class="stat-number" id="statRead">2</div>
+            <div class="muted small">Demo read status</div>
+          </div>
+
+          <div class="card">
+            <div class="stat-icon">💬</div>
+            <div class="stat-label">Parent Replies</div>
+            <div class="stat-number" id="statReplies">1</div>
+            <div class="muted small">Replies received</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Recent Announcements</h3>
+            <div id="recentNotices"></div>
+          </div>
+
+          <div class="card">
+            <h3>Communication Overview</h3>
+            <p class="muted small">Sample engagement figures</p>
+            <p>Delivery rate <strong>90%</strong></p>
+            <div class="progress"><div style="width:90%"></div></div>
+            <p>Read rate <strong>75%</strong></p>
+            <div class="progress"><div style="width:75%"></div></div>
+            <p>Response rate <strong>60%</strong></p>
+            <div class="progress"><div style="width:60%"></div></div>
+            <span class="badge orange">Demo analytics</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTICES -->
+      <section class="page" id="notices">
+        <div class="two-col">
+          <div class="card">
+            <h3>Create a School Notice</h3>
+            <form id="noticeForm">
+              <label for="noticeTitle">Notice title</label>
+              <input id="noticeTitle" required maxlength="150"
+                placeholder="e.g. Parent-Teacher Meeting">
+
+              <label for="noticeCategory">Category</label>
+              <select id="noticeCategory">
+                <option>General Announcement</option>
+                <option>Exam</option>
+                <option>Fee Reminder</option>
+                <option>Holiday</option>
+                <option>Parent-Teacher Meeting</option>
+                <option>Emergency Alert</option>
+              </select>
+
+              <label for="noticeMessage">Message in English</label>
+              <textarea id="noticeMessage" required maxlength="5000"
+                placeholder="Write the school announcement..."></textarea>
+
+              <label for="noticeDate">Important date (optional)</label>
+              <input type="date" id="noticeDate">
+
+              <label for="noticeLanguage">Preview language</label>
+              <select id="noticeLanguage">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="kn">Kannada</option>
+                <option value="ta">Tamil</option>
+                <option value="te">Telugu</option>
+                <option value="ml">Malayalam</option>
+                <option value="mr">Marathi</option>
+              </select>
+
+              <button class="btn" type="submit">Create Notice</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3>Multilingual Preview</h3>
+            <p class="muted small">
+              Choose a language to preview the selected message.
+            </p>
+            <div id="translationPreview" aria-live="polite">
+              <p class="empty">Your notice preview will appear here.</p>
+            </div>
+            <button class="btn secondary" id="previewBtn">
+              Preview Translation
+            </button>
+            <p class="muted small">
+              Translation previews use sample phrases. Real translation
+              requires a connected translation service.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>All Announcements</h3>
+          <div id="noticeList"></div>
+        </div>
+      </section>
+
+      <!-- PARENTS -->
+      <section class="page" id="parents">
+        <div class="card">
+          <h3>Parent Directory</h3>
+          <p class="muted small">
+            Sample records only. Do not enter real personal information
+            until secure authentication and access controls are implemented.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Parent</th>
+                  <th>Student</th>
+                  <th>Class</th>
+                  <th>Language</th>
+                  <th>Consent</th>
+                </tr>
+              </thead>
+              <tbody id="parentTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Parent Portal — Demo Reply</h3>
+          <label for="replyNotice">Select notice</label>
+          <select id="replyNotice"></select>
+          <label for="parentReply">Your reply</label>
+          <textarea id="parentReply" maxlength="2000"
+            placeholder="Write a response to the teacher..."></textarea>
+          <label class="check-row">
+            <input type="checkbox" id="replyConsent">
+            <span>I agree to submit this demo response to the school.</span>
+          </label>
+          <button class="btn" id="sendReply">Submit Reply</button>
+          <div id="replyList"></div>
+        </div>
+      </section>
+
+      <!-- REMINDERS -->
+      <section class="page" id="reminders">
+        <div class="two-col">
+          <div class="card">
+            <h3>Create a Smart Reminder</h3>
+            <form id="reminderForm">
+              <label for="reminderTitle">Reminder title</label>
+              <input id="reminderTitle" required maxlength="150"
+                placeholder="e.g. Mathematics examination">
+
+              <label for="reminderType">Reminder type</label>
+              <select id="reminderType">
+                <option>Examination</option>
+                <option>Fee Deadline</option>
+                <option>Holiday</option>
+                <option>Parent-Teacher Meeting</option>
+                <option>Attendance</option>
+                <option>Other</option>
+              </select>
+
+              <label for="reminderDate">Date</label>
+              <input id="reminderDate" type="date" required>
+
+              <label for="reminderNotes">Details</label>
+              <textarea id="reminderNotes" maxlength="2000"
+                placeholder="Add useful information..."></textarea>
+
+              <button class="btn" type="submit">Save Reminder</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3>Upcoming Reminders</h3>
+            <div id="reminderList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VOICE -->
+      <section class="page" id="voice">
+        <div class="two-col">
+          <div class="card">
+            <h3>🎙️ Record a Voice Message</h3>
+            <p class="muted">
+              Record an announcement using your browser microphone.
+            </p>
+            <button class="btn" id="recordBtn">Start Recording</button>
+            <button class="btn danger" id="stopBtn" disabled>
+              Stop Recording
+            </button>
+            <p id="recordStatus" class="muted small" aria-live="polite">
+              Microphone permission will be requested when recording starts.
+            </p>
+            <audio id="audioPlayback" controls style="width:100%;display:none"></audio>
+            <button class="btn secondary" id="downloadAudio" style="display:none">
+              Download Recording
+            </button>
+          </div>
+
+          <div class="card">
+            <h3>🔊 Listen to a Notice</h3>
+            <label for="speakText">Text to read aloud</label>
+            <textarea id="speakText"
+              placeholder="Enter the announcement you want to hear..."></textarea>
+            <label for="speakLanguage">Speech language</label>
+            <select id="speakLanguage">
+              <option value="en-US">English</option>
+              <option value="hi-IN">Hindi</option>
+              <option value="kn-IN">Kannada</option>
+              <option value="ta-IN">Tamil</option>
+              <option value="te-IN">Telugu</option>
+              <option value="ml-IN">Malayalam</option>
+              <option value="mr-IN">Marathi</option>
+            </select>
+            <div class="btn-row">
+              <button class="btn" id="speakBtn">Read Aloud</button>
+              <button class="btn secondary" id="stopSpeakBtn">Stop Audio</button>
+            </div>
+            <p class="muted small">
+              Available voices depend on the browser and operating system.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI ASSISTANT -->
+      <section class="page" id="assistant">
+        <div class="card">
+          <h3>🤖 School Communication Assistant</h3>
+          <p class="muted">
+            Summarize a circular and identify dates, deadlines, and action items.
+          </p>
+          <label for="aiInput">Paste the school circular</label>
+          <textarea id="aiInput" style="min-height:180px"
+            placeholder="Paste your notice here..."></textarea>
+          <button class="btn" id="summarizeBtn">Summarize Notice</button>
+          <div id="summaryResult" aria-live="polite"></div>
+        </div>
+        <div class="card">
+          <h3>Future AI Integration</h3>
+          <ul>
+            <li>AI-generated summaries in simple language.</li>
+            <li>Automatic extraction of dates and required actions.</li>
+            <li>Language detection and translation confidence checks.</li>
+            <li>Human review of sensitive and emergency messages.</li>
+          </ul>
+          <p class="muted small">
+            The summarization button currently uses a basic local demo.
+            Connect an AI service through a secure backend for real AI.
+          </p>
+        </div>
+      </section>
+
+      <!-- ANALYTICS -->
+      <section class="page" id="analytics">
+        <div class="grid">
+          <div class="card">
+            <div class="stat-label">Total Notices</div>
+            <div class="stat-number" id="analyticsNotices">2</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Parent Records</div>
+            <div class="stat-number" id="analyticsParents">4</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Replies</div>
+            <div class="stat-number" id="analyticsReplies">1</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Reminders</div>
+            <div class="stat-number" id="analyticsReminders">2</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Communication Reach</h3>
+          <p class="muted small">
+            Illustrative figures only; these are not measured delivery statistics.
+          </p>
+          <p>Notices created <strong id="reachNotices">2</strong></p>
+          <p>Sample parent directory <strong id="reachParents">4</strong></p>
+          <p>Replies submitted <strong id="reachReplies">1</strong></p>
+          <p>Reminders scheduled <strong id="reachReminders">2</strong></p>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="page" id="settings">
+        <div class="card">
+          <h3>⚙️ Communication Preferences</h3>
+
+          <label for="schoolName">School name</label>
+          <input id="schoolName" value="SchoolConnect Demo School">
+
+          <label for="defaultLanguage">Default school language</label>
+          <select id="defaultLanguage">
+            <option value="en">English</option>
+            <option value="kn">Kannada</option>
+            <option value="hi">Hindi</option>
+            <option value="ta">Tamil</option>
+            <option value="te">Telugu</option>
+            <option value="ml">Malayalam</option>
+          </select>
+
+          <label class="check-row">
+            <input type="checkbox" id="consentRequired" checked>
+            <span>Require parent consent before enabling optional communication channels.</span>
+          </label>
+
+          <button class="btn" id="saveSettings">Save Preferences</button>
+          <p id="settingsStatus" class="muted small" aria-live="polite"></p>
+        </div>
+
+        <div class="card">
+          <h3>Privacy and Security</h3>
+          <ul>
+            <li>Use authenticated accounts for teachers, administrators, and parents.</li>
+            <li>Restrict student information to authorized users.</li>
+            <li>Obtain consent for optional messaging and voice recording.</li>
+            <li>Encrypt sensitive information in transit and at rest.</li>
+            <li>Provide retention, deletion, and access controls.</li>
+          </ul>
+          <p class="muted small">
+            These are recommendations, not security controls implemented
+            by this standalone HTML demo.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      SchoolConnect © 2026 · Front-end prototype · Sample data only
+    </footer>
+  </main>
+</div>
+
+<script>
+"use strict";
+
+// ------------------------------------
+// DEMO DATA AND LOCAL STORAGE
+// ------------------------------------
+
+const initialNotices = [
+  {
+    id: 1,
+    title: "Welcome to SchoolConnect",
+    category: "General Announcement",
+    message: "Welcome! Please check this portal regularly for school updates.",
+    date: "",
+    language: "en",
+    status: "Read",
+    replies: []
+  },
+  {
+    id: 2,
+    title: "Parent-Teacher Meeting",
+    category: "Parent-Teacher Meeting",
+    message: "Please contact the school office for meeting details.",
+    date: "",
+    language: "en",
+    status: "Sent",
+    replies: []
+  }
+];
+
+const demoParents = [
+  { name: "Demo Parent 1", student: "Student A", cls: "5A", language: "Kannada" },
+  { name: "Demo Parent 2", student: "Student B", cls: "6B", language: "Hindi" },
+  { name: "Demo Parent 3", student: "Student C", cls: "4A", language: "Tamil" },
+  { name: "Demo Parent 4", student: "Student D", cls: "7C", language: "English" }
+];
+
+function loadData(key, fallback) {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  } catch (error) {
+    return fallback;
+  }
+}
+
+let notices = loadData("sc_notices", initialNotices);
+let reminders = loadData("sc_reminders", [
+  {
+    id: 1,
+    title: "Sample examination reminder",
+    type: "Examination",
+    date: "",
+    notes: "Please check the school circular for details."
+  }
+]);
+
+let nextNoticeId = Math.max(0, ...notices.map(n => Number(n.id) || 0)) + 1;
+let nextReminderId = Math.max(0, ...reminders.map(r => Number(r.id) || 0)) + 1;
+
+function saveData() {
+  try {
+    localStorage.setItem("sc_notices", JSON.stringify(notices));
+    localStorage.setItem("sc_reminders", JSON.stringify(reminders));
+    return true;
+  } catch (error) {
+    alert("Browser storage is unavailable or full. Changes may not persist.");
+    return false;
+  }
+}
+
+// Always insert user-provided text with textContent, not innerHTML.
+function makeElement(tag, className, value) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (value !== undefined) el.textContent = value;
+  return el;
+}
+
+function addText(parent, tag, value, className) {
+  const el = makeElement(tag, className, value);
+  parent.appendChild(el);
+  return el;
+}
+
+function makeButton(text, className, action) {
+  const btn = makeElement("button", "btn " + (className || ""), text);
+  btn.type = "button";
+  btn.addEventListener("click", action);
+  return btn;
+}
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === id);
+  });
+
+  document.querySelectorAll(".nav-btn").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === id);
+  });
+
+  const active = document.querySelector(
+    '.nav-btn[data-page="' + id + '"]'
+  );
+
+  document.getElementById("pageTitle").textContent =
+    active ? active.textContent.trim().replace(/^[^\s]+\s/, "") : "Dashboard";
+
+  if (id === "notices") renderNotices();
+  if (id === "parents") renderParents();
+  if (id === "reminders") renderReminders();
+  if (id === "dashboard") renderDashboard();
+  if (id === "analytics") renderAnalytics();
+}
+
+document.querySelectorAll(".nav-btn").forEach(button => {
+  button.addEventListener("click", () => showPage(button.dataset.page));
+});
+
+// ------------------------------------
+// DASHBOARD
+// ------------------------------------
+
+function renderDashboard() {
+  document.getElementById("statParents").textContent = demoParents.length;
+  document.getElementById("statNotices").textContent = notices.length;
+
+  const readCount = notices.filter(n => n.status === "Read").length;
+  const replyCount = notices.reduce(
+    (total, n) => total + (n.replies || []).length, 0
+  );
+
+  document.getElementById("statRead").textContent = readCount;
+  document.getElementById("statReplies").textContent = replyCount;
+
+  const root = document.getElementById("recentNotices");
+  root.replaceChildren();
+
+  notices.slice().reverse().slice(0, 5).forEach(notice => {
+    const item = makeElement("div", "notice");
+    addText(item, "strong", notice.title);
+    addText(item, "p", notice.message);
+    addText(item, "span", notice.status, "badge");
+    root.appendChild(item);
+  });
+
+  if (!notices.length) addText(root, "p", "No notices created.", "empty");
+}
+
+// ------------------------------------
+// NOTICE CREATION AND PREVIEW
+// ------------------------------------
+
+// This is a phrasebook demonstration, NOT a translation engine.
+const phrasebook = {
+  en: {
+    "Please attend the meeting.": "Please attend the meeting.",
+    "School will remain closed.": "School will remain closed.",
+    "Please pay the fee by the due date.": "Please pay the fee by the due date."
+  },
+  hi: {
+    "Please attend the meeting.": "कृपया बैठक में शामिल हों।",
+    "School will remain closed.": "विद्यालय बंद रहेगा।",
+    "Please pay the fee by the due date.": "कृपया निर्धारित तिथि तक शुल्क जमा करें।"
+  },
+  kn: {
+    "Please attend the meeting.": "ದಯವಿಟ್ಟು ಸಭೆಗೆ ಹಾಜರಾಗಿ.",
+    "School will remain closed.": "ಶಾಲೆಗೆ ರಜೆ ಇರುತ್ತದೆ.",
+    "Please pay the fee by the due date.": "ದಯವಿಟ್ಟು ನಿಗದಿತ ದಿನಾಂಕದೊಳಗೆ ಶುಲ್ಕ ಪಾವತಿಸಿ."
+  },
+  ta: {
+    "Please attend the meeting.": "தயவுசெய்து கூட்டத்தில் கலந்து கொள்ளவும்.",
+    "School will remain closed.": "பள்ளிக்கு விடுமுறை இருக்கும்.",
+    "Please pay the fee by the due date.": "தயவுசெய்து குறிப்பிட்ட தேதிக்குள் கட்டணம் செலுத்தவும்."
+  },
+  te: {
+    "Please attend the meeting.": "దయచేసి సమావేశానికి హాజరుకండి.",
+    "School will remain closed.": "పాఠశాలకు సెలవు ఉంటుంది.",
+    "Please pay the fee by the due date.": "దయచేసి గడువు తేదీలోపు ఫీజు చెల్లించండి."
+  },
+  ml: {
+    "Please attend the meeting.": "ദയവായി യോഗത്തിൽ പങ്കെടുക്കുക.",
+    "School will remain closed.": "സ്കൂളിന് അവധിയായിരിക്കും.",
+    "Please pay the fee by the due date.": "ദയവായി നിശ്ചിത തീയതിക്കകം ഫീസ് അടയ്ക്കുക."
+  },
+  mr: {
+    "Please attend the meeting.": "कृपया बैठकीला उपस्थित राहा.",
+    "School will remain closed.": "शाळा बंद राहील.",
+    "Please pay the fee by the due date.": "कृपया देय तारखेपर्यंत शुल्क भरा."
+  }
+};
+
+function previewMessage() {
+  const language = document.getElementById("noticeLanguage").value;
+  const message = document.getElementById("noticeMessage").value.trim();
+  const root = document.getElementById("translationPreview");
+  root.replaceChildren();
+
+  const known = phrasebook[language] || {};
+  const translated = known[message];
+
+  addText(root, "p", translated || message || "Enter a message to preview.");
+  addText(
+    root,
+    "p",
+    translated
+      ? "Sample phrasebook translation"
+      : "English fallback: connect a translation API for full translations.",
+    "muted small"
+  );
+}
+
+document.getElementById("previewBtn").addEventListener("click", previewMessage);
+
+document.getElementById("noticeForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const notice = {
+    id: nextNoticeId++,
+    title: document.getElementById("noticeTitle").value.trim(),
+    category: document.getElementById("noticeCategory").value,
+    message: document.getElementById("noticeMessage").value.trim(),
+    date: document.getElementById("noticeDate").value,
+    language: document.getElementById("noticeLanguage").value,
+    status: "Created (demo)",
+    replies: []
+  };
+
+  notices.push(notice);
+  saveData();
+  event.target.reset();
+  document.getElementById("translationPreview").replaceChildren();
+  renderNotices();
+  renderDashboard();
+  alert("Notice created in this browser. It has NOT been delivered to parents.");
+});
+
+function renderNotices() {
+  const root = document.getElementById("noticeList");
+  root.replaceChildren();
+
+  notices.slice().reverse().forEach(notice => {
+    const item = makeElement("div", "notice");
+    addText(item, "h3", notice.title);
+    addText(item, "p", notice.category, "muted small");
+    addText(item, "p", notice.message);
+    if (notice.date) addText(item, "p", "Important date: " + notice.date);
+    addText(item, "span", notice.status, "badge");
+
+    const actions = makeElement("div", "btn-row");
+    actions.appendChild(makeButton("Mark as read (demo)", "secondary", () => {
+      notice.status = "Read";
+      saveData();
+      renderNotices();
+      renderDashboard();
+    }));
+
+    actions.appendChild(makeButton("Delete", "danger", () => {
+      if (!confirm("Delete this notice from this browser?")) return;
+      notices = notices.filter(n => n.id !== notice.id);
+      saveData();
+      renderNotices();
+      renderDashboard();
+    }));
+
+    item.appendChild(actions);
+    root.appendChild(item);
+  });
+
+  if (!notices.length) addText(root, "p", "No notices available.", "empty");
+  renderReplyOptions();
+}
+
+// ------------------------------------
+// PARENT DIRECTORY AND REPLIES
+// ------------------------------------
+
+function renderParents() {
+  const root = document.getElementById("parentTable");
+  root.replaceChildren();
+
+  demoParents.forEach(parent => {
+    const tr = document.createElement("tr");
+    [
+      parent.name, parent.student, parent.cls, parent.language, "Demo only"
+    ].forEach(value => addText(tr, "td", value));
+    root.appendChild(tr);
+  });
+
+  renderReplyOptions();
+  renderReplies();
+}
+
+function renderReplyOptions() {
+  const select = document.getElementById("replyNotice");
+  const current = select.value;
+  select.replaceChildren();
+
+  notices.forEach(notice => {
+    const option = document.createElement("option");
+    option.value = String(notice.id);
+    option.textContent = notice.title;
+    select.appendChild(option);
+  });
+
+  if (notices.some(n => String(n.id) === current)) select.value = current;
+}
+
+document.getElementById("sendReply").addEventListener("click", () => {
+  const notice = notices.find(
+    n => String(n.id) === document.getElementById("replyNotice").value
+  );
+
+  const reply = document.getElementById("parentReply").value.trim();
+
+  if (!notice) return alert("Create a notice before replying.");
+  if (!reply) return alert("Please write a reply.");
+  if (!document.getElementById("replyConsent").checked) {
+    return alert("Please confirm consent before submitting.");
+  }
+
+  notice.replies = notice.replies || [];
+  notice.replies.push({
+    text: reply,
+    date: new Date().toLocaleString()
+  });
+
+  saveData();
+  document.getElementById("parentReply").value = "";
+  document.getElementById("replyConsent").checked = false;
+
+  renderReplies();
+  renderDashboard();
+  renderAnalytics();
+  alert("Demo reply saved in this browser. No teacher has been notified.");
+});
+
+function renderReplies() {
+  const root = document.getElementById("replyList");
+  root.replaceChildren();
+  addText(root, "h3", "Submitted Replies");
+
+  notices.forEach(notice => {
+    (notice.replies || []).forEach(reply => {
+      const item = makeElement("div", "notice");
+      addText(item, "strong", notice.title);
+      addText(item, "p", reply.text);
+      addText(item, "p", reply.date, "muted small");
+      root.appendChild(item);
+    });
+  });
+
+  if (!notices.some(n => (n.replies || []).length)) {
+    addText(root, "p", "No replies yet.", "empty");
+  }
+}
+
+// ------------------------------------
+// REMINDERS
+// ------------------------------------
+
+document.getElementById("reminderForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  reminders.push({
+    id: nextReminderId++,
+    title: document.getElementById("reminderTitle").value.trim(),
+    type: document.getElementById("reminderType").value,
+    date: document.getElementById("reminderDate").value,
+    notes: document.getElementById("reminderNotes").value.trim()
+  });
+
+  saveData();
+  event.target.reset();
+  renderReminders();
+  renderAnalytics();
+  alert("Reminder saved locally. No notification has been sent.");
+});
+
+function renderReminders() {
+  const root = document.getElementById("reminderList");
+  root.replaceChildren();
+
+  reminders.slice().sort((a, b) => a.date.localeCompare(b.date))
+    .forEach(reminder => {
+      const item = makeElement("div", "notice");
+      addText(item, "h3", reminder.title);
+      addText(item, "span", reminder.type, "badge");
+      addText(item, "p", reminder.date || "No date set");
+      if (reminder.notes) addText(item, "p", reminder.notes);
+
+      item.appendChild(makeButton("Delete Reminder", "danger", () => {
+        reminders = reminders.filter(r => r.id !== reminder.id);
+        saveData();
+        renderReminders();
+        renderAnalytics();
+      }));
+
+      root.appendChild(item);
+    });
+
+  if (!reminders.length) addText(root, "p", "No reminders created.", "empty");
+}
+
+// ------------------------------------
+// VOICE RECORDING
+// ------------------------------------
+
+let mediaRecorder = null;
+let audioChunks = [];
+let audioBlob = null;
+let microphoneStream = null;
+
+const recordBtn = document.getElementById("recordBtn");
+const stopBtn = document.getElementById("stopBtn");
+const audioPlayback = document.getElementById("audioPlayback");
+const downloadAudio = document.getElementById("downloadAudio");
+
+recordBtn.addEventListener("click", async () => {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia ||
+      !window.MediaRecorder) {
+    alert("Voice recording is not supported in this browser or context. Use HTTPS or localhost and a supported browser.");
+    return;
+  }
+
+  try {
+    microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    audioChunks = [];
+    mediaRecorder = new MediaRecorder(microphoneStream);
+
+    mediaRecorder.addEventListener("dataavailable", event => {
+      if (event.data.size > 0) audioChunks.push(event.data);
+    });
+
+    mediaRecorder.addEventListener("stop", () => {
+      audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+      audioPlayback.src = URL.createObjectURL(audioBlob);
+      audioPlayback.style.display = "block";
+      downloadAudio.style.display = "inline-block";
+      document.getElementById("recordStatus").textContent =
+        "Recording ready. Play or download your audio.";
+      microphoneStream.getTracks().forEach(track => track.stop());
+      microphoneStream = null;
+    });
+
+    mediaRecorder.start();
+    recordBtn.disabled = true;
+    stopBtn.disabled = false;
+    document.getElementById("recordStatus").textContent = "Recording...";
+  } catch (error) {
+    document.getElementById("recordStatus").textContent =
+      "Microphone access was denied or unavailable.";
+  }
+});
+
+stopBtn.addEventListener("click", () => {
+  if (mediaRecorder && mediaRecorder.state === "recording") {
+    mediaRecorder.stop();
+  }
+  recordBtn.disabled = false;
+  stopBtn.disabled = true;
+});
+
+downloadAudio.addEventListener("click", () => {
+  if (!audioBlob) return;
+
+  const url = URL.createObjectURL(audioBlob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "school-voice-message.webm";
+  link.click();
+  URL.revokeObjectURL(url);
+});
+
+// Browser speech synthesis
+document.getElementById("speakBtn").addEventListener("click", () => {
+  const text = document.getElementById("speakText").value.trim();
+
+  if (!text) return alert("Enter a message first.");
+  if (!("speechSynthesis" in window)) {
+    return alert("Speech synthesis is not supported in this browser.");
+  }
+
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = document.getElementById("speakLanguage").value;
+  speechSynthesis.speak(utterance);
+});
+
+document.getElementById("stopSpeakBtn").addEventListener("click", () => {
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
+});
+
+// ------------------------------------
+// LOCAL DEMO SUMMARIZER
+// ------------------------------------
+
+document.getElementById("summarizeBtn").addEventListener("click", () => {
+  const text = document.getElementById("aiInput").value.trim();
+  const root = document.getElementById("summaryResult");
+  root.replaceChildren();
+
+  if (!text) return addText(root, "p", "Please enter a school circular.", "empty");
+
+  const sentences = text.match(/[^.!?\n]+[.!?]?/g) || [text];
+  const summary = sentences.slice(0, 3).join(" ").trim();
+
+  const datePattern =
+    /\b(?:\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{4}-\d{2}-\d{2})\b/g;
+  const dates = text.match(datePattern) || [];
+
+  addText(root, "h3", "Summary (basic demo)");
+  addText(root, "p", summary);
+
+  addText(root, "h3", "Dates detected");
+  addText(root, "p", dates.length ? dates.join(", ") : "No numeric dates detected.");
+
+  addText(root, "p",
+    "This is a simple extractive preview, not an AI-generated or verified summary.",
+    "muted small");
+});
+
+// ------------------------------------
+// ANALYTICS
+// ------------------------------------
+
+function renderAnalytics() {
+  const replies = notices.reduce(
+    (sum, n) => sum + (n.replies || []).length, 0
+  );
+
+  const values = {
+    analyticsNotices: notices.length,
+    analyticsParents: demoParents.length,
+    analyticsReplies: replies,
+    analyticsReminders: reminders.length,
+    reachNotices: notices.length,
+    reachParents: demoParents.length,
+    reachReplies: replies,
+    reachReminders: reminders.length
+  };
+
+  Object.entries(values).forEach(([id, value]) => {
+    document.getElementById(id).textContent = value;
+  });
+}
+
+// ------------------------------------
+// ROLE PREVIEW AND SETTINGS
+// ------------------------------------
+
+document.getElementById("role").addEventListener("change", event => {
+  if (event.target.value === "parent") {
+    showPage("parents");
+  } else {
+    showPage("dashboard");
+  }
+});
+
+document.getElementById("saveSettings").addEventListener("click", () => {
+  const settings = {
+    schoolName: document.getElementById("schoolName").value.trim(),
+    defaultLanguage: document.getElementById("defaultLanguage").value,
+    consentRequired: document.getElementById("consentRequired").checked
+  };
+
+  try {
+    localStorage.setItem("sc_settings", JSON.stringify(settings));
+    document.getElementById("settingsStatus").textContent =
+      "Preferences saved in this browser.";
+  } catch (error) {
+    document.getElementById("settingsStatus").textContent =
+      "Could not save preferences.";
+  }
+});
+
+function loadSettings() {
+  const settings = loadData("sc_settings", null);
+  if (!settings) return;
+
+  document.getElementById("schoolName").value =
+    settings.schoolName || "SchoolConnect Demo School";
+  document.getElementById("defaultLanguage").value =
+    settings.defaultLanguage || "en";
+  document.getElementById("consentRequired").checked =
+    settings.consentRequired !== false;
+}
+
+// ------------------------------------
+// START APPLICATION
+// ------------------------------------
+
+loadSettings();
+renderDashboard();
+renderNotices();
+renderParents();
+renderReminders();
+renderAnalytics();
+</script>
+</body>
+</html>
